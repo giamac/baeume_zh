@@ -1,5 +1,7 @@
 # Baumkataster Zürich
 
+This is a small app to find trees in Zurich
+
 This is an [Observable Framework](https://observablehq.com/framework/) app. To install the required dependencies, run:
 
 ```
