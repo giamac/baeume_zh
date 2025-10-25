@@ -48,10 +48,17 @@ div.style = "height: 600px;";
 const map = L.map(div)
   .setView([47.3769, 8.5417], 13);
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-})
-  .addTo(map);
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", {
+  attribution: '&copy; <a href="https://www.esri.com/">Esri</a>',
+}).addTo(map);
+
+// Define a smaller custom icon
+const smallIcon = L.icon({
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png", // Default Leaflet marker icon
+  iconSize: [16, 26], // Set the size of the icon (width, height)
+  iconAnchor: [8, 26], // Anchor the icon (center bottom)
+  popupAnchor: [0, -26], // Position the popup relative to the icon
+});
 
 // Layer to hold markers
 let markersLayer = L.layerGroup().addTo(map);
@@ -74,7 +81,7 @@ function updateMap(selectedBaumnamelat) {
       <strong>Baumname (Deu.):</strong> ${feature.properties.baumnamedeu}<br>
       <strong>Pflanzjahr:</strong> ${feature.properties.pflanzjahr}<br>
     `;
-    const marker = L.marker([lat, lon]).bindTooltip(tooltipContent);
+    const marker = L.marker([lat, lon], { icon: smallIcon }).bindTooltip(tooltipContent);
     markersLayer.addLayer(marker);
   });
 }
